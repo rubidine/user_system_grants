@@ -1,0 +1,28 @@
+UserSystemGrants
+================
+
+Expand UserSystem so a user can grant access to their objects to other users.
+
+
+Example
+=======
+
+If @user1 has a @photo they want @user2 to be able to view:
+
+  UserSystem::Grant.create(
+    :granting_user => @user1,
+    :user => @user2,
+    :grant_object => @photo,
+    :grant_type => UserSystem::GrantType['view']
+  )
+
+To check that the users has the right grant
+
+  if UserSystem::Grant.from(@photo.user_id).to(current_user).on_object(@photo).with_level(['view', 'comment', 'edit']).empty?
+    # NO WAY!
+  else
+    # WAY COOL DUDE, CHECK OUT THIS PHOTO
+  end
+
+
+Copyright (c) 2010 Todd Willey <todd@rubidine.com>, released under the MIT license
