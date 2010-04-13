@@ -11,8 +11,8 @@ class CreateGrantsTable < ActiveRecord::Migration
       t.timestamp :expires_at
     end
 
-    add_index UserSystem::Grant.table_name, [:grant_object_type, :grant_object_id, :grant_level_id]
-    add_index UserSystem::Grant.table_name, [:user_id, :grant_object_type, :grant_level_id]
+    add_index UserSystem::Grant.table_name, [:grant_object_type, :grant_object_id, :grant_level_id], :name => 'us_g_object_level'
+    add_index UserSystem::Grant.table_name, [:user_id, :grant_object_type, :grant_level_id], :name => 'us_g_user_level'
   end
 
   def self.down
